@@ -10,8 +10,8 @@ Estou aqui para levar vocês numa jornada cheia de descobertas, diversão e muit
 
 Preparados para serem os super-heróis do meio ambiente? Vamos nessa! Cada pequeno passo que damos faz uma grande diferença. Estou super animado para começar essa aventura com vocês. Vamos lá, equipe EcoInnova! 🌍✨🚀"""
 
-openai_api_key = "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"
-
+openai_api_key = "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"
+client = OpenAI(api_key=openai_api_key)
 st.title("💬 EcoInnovaBot")
 st.caption("🚀 ChatBot Educativo by GHD, Brisa e Gabi")
 
@@ -35,15 +35,13 @@ if len(st.session_state.messages)<4:
         )
     st.write(opcao)
     st.session_state.messages.append({"role":"assistant","content":f"Vamos falar sobre o assunto {opcao}"})
-    client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
     msg = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": msg})
 
 if prompt := st.chat_input(): 
     st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-    client = OpenAI(api_key=openai_api_key)
+    st.chat_message("user").write(prompt)    
     response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
     msg = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": msg})
